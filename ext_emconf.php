@@ -15,11 +15,11 @@ $EM_CONF[$_EXTKEY] = array(
     'lockType' => '',
     'version' => '1.1.2',
     'constraints' =>
-        array(
-            'depends' => array(
-                'typo3' => '10.4',
-                'solrfal' => '4.0',
-            ),
-            'conflicts' => array(),
-        ),
+        [
+            'depends' => [
+                'typo3' => '11.5.4-11.5.99',
+                'solrfal' => 'dev-master',
+            ],
+            'conflicts' => [],
+        ],
 );
