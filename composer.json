@@ -8,7 +8,7 @@
   "require": {
     "php" : ">=7.4",
     "typo3/cms-core": "^11.5",
-    "apache-solr-for-typo3/solrfal": "dev-master"
+    "apache-solr-for-typo3/solrfal": "dev-main"
   },
   "autoload": {
     "psr-4": {
