@@ -1,25 +1,19 @@
 <?php
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF['solrfal_textextract'] = [
     'title' => 'Apache Solr for TYPO3 - File Indexing - Text extracting',
     'description' => 'Add text extracting for indexing of FileAbstractionLayer based files in TYPO3 CMS',
     'category' => 'misc',
-    'shy' => '',
-    'priority' => '',
-    'module' => '',
     'state' => 'beta',
-    'internal' => '',
     'author' => 'Frans Saris (Beech.it)',
     'author_email' => 't3ext@beech.it',
     'author_company' => 'Beech IT',
-    'clearCacheOnLoad' => 1,
-    'lockType' => '',
     'version' => '1.1.2',
     'constraints' =>
         [
             'depends' => [
-                'typo3' => '11.5.4-11.5.99',
+                'typo3' => '12.4.0-12.4.99',
                 'solrfal' => 'dev-master',
             ],
             'conflicts' => [],
         ],
-);
+];
