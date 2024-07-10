@@ -12,7 +12,7 @@ $EM_CONF['solrfal_textextract'] = [
         [
             'depends' => [
                 'typo3' => '12.4.0-12.4.99',
-                'solrfal' => 'dev-master',
+                'solrfal' => '12.0.0-12.9.99',
             ],
             'conflicts' => [],
         ],
