@@ -12,6 +12,7 @@ use ApacheSolrForTypo3\Solrfal\Queue\Item;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\CommandUtility;
@@ -50,7 +51,8 @@ class AfterFileInfoHasBeenAddedToDocumentEventListener implements LoggerAwareInt
      */
     public function __construct()
     {
-        $extConf = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['solrfal_textextract'];
+        $extConf = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ExtensionConfiguration::class)
+            ->get('solrfal_textextract');
         if (!empty($extConf['pathTika'])) {
             $this->pathTika = $extConf['pathTika'];
 
