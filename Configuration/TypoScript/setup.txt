@@ -1,2 +1,1 @@
-# \BeechIt\SolrfalTextextract\Aspects\SolrFalAspect tries to fill $metadata[content]
-plugin.tx_solr.index.queue._FILES.default.content = content
+@import 'EXT:solrfal-textextract/Configuration/TypoScript/setup.typoscript'

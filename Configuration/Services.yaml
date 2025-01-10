@@ -6,8 +6,3 @@ services:
 
   BeechIt\SolrfalTextextract\:
     resource: '../Classes/*'
-
-  BeechIt\SolrfalTextextract\EventListener\AfterFileInfoHasBeenAddedToDocumentEventListener:
-    tags:
-      - name: event.listener
-        identifier: 'solrfal/extract-content-from-pdf'

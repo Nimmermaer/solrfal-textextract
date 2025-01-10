@@ -25,27 +25,27 @@ class SolrFalAspect implements SingletonInterface
     /**
      * @var string
      */
-    protected $pathTika = '/usr/bin';
+    protected mixed $pathTika = '/usr/bin';
 
     /**
      * @var string
      */
-    protected $pathPdftotext;
+    protected mixed $pathPdftotext = '';
 
     /**
      * @var array
      */
-    protected $supportedFileExtensions = array();
+    protected array $supportedFileExtensions = [];
 
     /**
      * @var bool
      */
-    protected $debug = TRUE;
+    protected bool $debug = TRUE;
 
     /**
      * @var Logger
      */
-    protected $logger;
+    protected \Psr\Log\LoggerInterface|Logger|null $logger = null;
 
     /**
      * Contructor
@@ -58,7 +58,8 @@ class SolrFalAspect implements SingletonInterface
         if (!empty($extConf['pathTika'])) {
             $this->pathTika = $extConf['pathTika'];
 
-            if (!GeneralUtility::isAbsPath($this->pathTika)) {
+
+            if (!PathUtility::isAbsolutePath($this->pathTika)) {
                 $this->pathTika = PathUtility::getCanonicalPath(Environment::getPublicPath() . '/' . $this->pathTika);
             }
 
@@ -101,7 +102,7 @@ class SolrFalAspect implements SingletonInterface
      * @param Item $item
      * @param \ArrayObject $metadata
      */
-    public function fileMetaDataRetrieved(Item $item, \ArrayObject $metadata)
+    public function fileMetaDataRetrieved(Item $item, \ArrayObject $metadata): void
     {
         if ($item->getFile() instanceof File && in_array(mb_strtolower($item->getFile()->getExtension()), $this->supportedFileExtensions)) {
             $content = NULL;
@@ -128,7 +129,7 @@ class SolrFalAspect implements SingletonInterface
      * @param File $file
      * @return string
      */
-    protected function pdfToText(File $file)
+    protected function pdfToText(File $file): ?string
     {
         if ($this->isPdfEncrypted($file)) {
             return '';
@@ -155,7 +156,7 @@ class SolrFalAspect implements SingletonInterface
      * @param File $file
      * @return bool
      */
-    protected function isPdfEncrypted(File $file)
+    protected function isPdfEncrypted(File $file): bool
     {
         $encrypted = FALSE;
         $cmd = rtrim($this->pathPdftotext, '/') . '/pdfinfo '
@@ -225,10 +226,10 @@ class SolrFalAspect implements SingletonInterface
      */
     protected function textHasEncryptionMarks($text)
     {
-        if (strpos($text, '%#$#') !== FALSE) {
+        if (str_contains($text, '%#$#')) {
             return TRUE;
         }
-        if (strpos($text, '!%!') !== FALSE) {
+        if (str_contains($text, '!%!')) {
             return TRUE;
         }
         return FALSE;
@@ -240,7 +241,7 @@ class SolrFalAspect implements SingletonInterface
      * @param File $file
      * @return string
      */
-    protected function fileToText(File $file)
+    protected function fileToText(File $file): ?string
     {
         $content = NULL;
         $tikaCommand = CommandUtility::getCommand('java')

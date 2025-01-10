@@ -11,37 +11,38 @@ use ApacheSolrForTypo3\Solrfal\Event\Indexing\AfterFileInfoHasBeenAddedToDocumen
 use ApacheSolrForTypo3\Solrfal\Queue\Item;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use TYPO3\CMS\Core\Attribute\AsEventListener;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 
-/**
- * Class SolrFalAspect
- */
+#[AsEventListener(
+    identifier: 'solrfal/extract-content-from-pdf'
+)]
 class AfterFileInfoHasBeenAddedToDocumentEventListener implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
     /**
      * @var string
      */
-    protected $pathTika = '/usr/bin';
+    protected mixed $pathTika = '/usr/bin';
 
     /**
      * @var string
      */
-    protected $pathPdftotext;
+    protected mixed $pathPdftotext = '';
 
     /**
      * @var array
      */
-    protected $supportedFileExtensions = [];
+    protected array $supportedFileExtensions = [];
 
     /**
      * @var bool
      */
-    protected $debug = TRUE;
+    protected bool $debug = TRUE;
 
 
     /**
